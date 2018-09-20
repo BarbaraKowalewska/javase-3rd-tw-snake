@@ -12,11 +12,10 @@ public class Curtain {
         curtain.setImage(image);
         curtain.setFitWidth(Globals.WINDOW_WIDTH);
         curtain.setFitHeight(Globals.WINDOW_HEIGHT);
-//        curtain.setPreserveRatio(true);
         game.getChildren().add(curtain);
     }
 
-    public static void remove(Game game) {
+    static void remove(Game game) {
         //remove last element
         game.getChildren().remove(game.getChildren().size()-1);
     }

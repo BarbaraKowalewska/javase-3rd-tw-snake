@@ -1,17 +1,15 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.Spawner;
 import com.codecool.snake.entities.enemies.Eagle;
 import com.codecool.snake.entities.enemies.Crab;
 import com.codecool.snake.entities.powerups.SuperPower;
 import com.codecool.snake.entities.powerups.Beer;
 import com.codecool.snake.entities.powerups.FirstAid;
-import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import com.codecool.snake.entities.powerups.Mouse;
-
 import com.codecool.snake.entities.Heart;
-
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Background;
@@ -19,38 +17,33 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.text.Text;
-
-import static com.codecool.snake.Globals.MAX_LIVES;
-import static com.codecool.snake.Globals.heartList;
 
 public class Game extends Pane {
     public static int frame = 0;
     public static int time = 0;
-    public static Score textScore;
     public static SnakeHead snake;
+    static Score textScore;
 
-    public Game() {
-        snake = new SnakeHead(this, Globals.WINDOW_WIDTH/2.0, Globals.WINDOW_HEIGHT/2.0);
+    Game() {
+        snake = new SnakeHead(this, Globals.SNAKE_SPAWN_X, Globals.SNAKE_SPAWN_Y);
+        textScore = new Score(this);
         initializeSpawners();
         initializeLives(Globals.lives);
-        textScore = new Score(this);
-        System.out.println(this.getChildren());
+    }
+
+    public static void respawnSnake(){
+        for (GameEntity gameObject : Globals.gameObjects) {
+            if (!(gameObject instanceof Heart)) {
+                gameObject.destroy();
+            }
+        }
+        new SnakeHead(Main.game, Globals.SNAKE_SPAWN_X, Globals.SNAKE_SPAWN_X);
     }
 
     private void initializeLives(int number) {
         for (int i = 0; i < number; i++) {
             new Heart(this, 920 - (60 * i), 15);
         }
-    }
-
-    public static void reSpawnSnake(){
-        for (GameEntity gameObject : Globals.gameObjects) {
-            if (!(gameObject instanceof Heart)) {
-                gameObject.destroy();
-            }
-        }
-        new SnakeHead( Main.game, Globals.SNAKE_SPAWN_X, Globals.SNAKE_SPAWN_X);
     }
 
     private void initializeSpawners() {
@@ -112,15 +105,8 @@ public class Game extends Pane {
     private void restart() {
         if (!Globals.isGamePaused) {
             this.getChildren().clear();
-            heartList.clear();
-            Globals.snakeLength = 8;
-            Globals.gameLoop.stop();
-            Globals.gameObjects.clear();
-            Globals.enemies.clear();
-            Globals.isGamePaused = false;
-            Globals.lives = MAX_LIVES;
+            resetGlobals();
             new SnakeHead(this, Globals.SNAKE_SPAWN_X, Globals.SNAKE_SPAWN_Y);
-            Globals.score = 0;
             initializeLives(Globals.lives);
             textScore = new Score(this);
             start();
@@ -128,6 +114,17 @@ public class Game extends Pane {
             pause();
             restart();
         }
+    }
+
+    private void resetGlobals() {
+        Globals.heartList.clear();
+        Globals.snakeLength = 8;
+        Globals.gameLoop.stop();
+        Globals.gameObjects.clear();
+        Globals.enemies.clear();
+        Globals.isGamePaused = false;
+        Globals.lives = Globals.MAX_LIVES;
+        Globals.score = 0;
     }
 
     private void pause() {

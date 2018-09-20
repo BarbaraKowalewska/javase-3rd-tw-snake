@@ -6,9 +6,8 @@ import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.layout.Pane;
 
-import java.util.Random;
 
-// a simple powerup that makes the snake grow TODO make other powerups
+// a simple element that makes the snake drunk i.e. changes move direction and disables shooting
 public class Beer extends GameEntity implements Interactable {
 
     public Beer(Pane pane, Double x, Double y) {

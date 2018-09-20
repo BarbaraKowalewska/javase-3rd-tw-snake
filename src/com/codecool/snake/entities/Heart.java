@@ -2,16 +2,11 @@ package com.codecool.snake.entities;
 
 import com.codecool.snake.Globals;
 import javafx.scene.layout.Pane;
-
 import static com.codecool.snake.Globals.heartList;
 
 public class Heart extends GameEntity {
 
     private boolean alive;
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
 
     public Heart(Pane pane, int x, int y) {
         super(pane);
