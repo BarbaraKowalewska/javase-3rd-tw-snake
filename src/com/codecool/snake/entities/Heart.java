@@ -8,7 +8,7 @@ public class Heart extends GameEntity {
 
     private boolean alive;
 
-    public Heart(Pane pane, int x, int y) {
+    public Heart(Pane pane, double x, double y) {
         super(pane);
         this.alive = true;
         setImage(Globals.heart);

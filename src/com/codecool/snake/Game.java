@@ -42,7 +42,7 @@ public class Game extends Pane {
 
     private void initializeLives(int number) {
         for (int i = 0; i < number; i++) {
-            new Heart(this, 920 - (60 * i), 15);
+            new Heart(this, (Globals.WINDOW_WIDTH - 80) - (60 * i), 15);
         }
     }
 
