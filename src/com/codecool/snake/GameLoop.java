@@ -14,12 +14,12 @@ public class GameLoop extends AnimationTimer {
         Game.frame++;
         for (GameEntity gameObject : Globals.gameObjects) {
             if (gameObject instanceof Animatable) {
-                Animatable animObject = (Animatable)gameObject;
+                Animatable animObject = (Animatable) gameObject;
                 animObject.step();
             }
         }
 
-        if (Game.frame%60 == 0) {
+        if (Game.frame % 60 == 0) {
             Game.time++;
         }
 
@@ -35,5 +35,6 @@ public class GameLoop extends AnimationTimer {
         Globals.gameObjects.removeAll(Globals.oldGameObjects);
         Globals.oldGameObjects.clear();
 
-        }
+        Game.textScore.upgradeText();
     }
+}

@@ -74,6 +74,7 @@ public class Mouse extends GameEntity implements Animatable, Interactable {
     public void apply(SnakeHead snakeHead) {
         Globals.snakeLength +=4;
         snakeHead.addPart(4);
+        snakeHead.changeScore(4);
         destroy();
     }
 

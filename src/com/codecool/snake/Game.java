@@ -19,6 +19,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.text.Text;
 
 import static com.codecool.snake.Globals.MAX_LIVES;
 import static com.codecool.snake.Globals.heartList;
@@ -26,20 +27,21 @@ import static com.codecool.snake.Globals.heartList;
 public class Game extends Pane {
     public static int frame = 0;
     public static int time = 0;
+    public static Score textScore;
     public static SnakeHead snake;
 
     public Game() {
-        //new Controls(this, 10, 10);
         snake = new SnakeHead(this, Globals.WINDOW_WIDTH/2.0, Globals.WINDOW_HEIGHT/2.0);
         initializeSpawners();
         initializeLives(Globals.lives);
+        textScore = new Score(this);
+        System.out.println(this.getChildren());
     }
 
-    private void initializeLives(int number){
-        for (int i=0; i<number; i++){
-            new Heart (this, 920-(60*i), 15 );
+    private void initializeLives(int number) {
+        for (int i = 0; i < number; i++) {
+            new Heart(this, 920 - (60 * i), 15);
         }
-
     }
 
     public static void reSpawnSnake(){
@@ -96,9 +98,9 @@ public class Game extends Pane {
                     break;
             }
         });
+
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
-
     }
 
     private void setBackground() {
@@ -118,7 +120,9 @@ public class Game extends Pane {
             Globals.isGamePaused = false;
             Globals.lives = MAX_LIVES;
             new SnakeHead(this, Globals.SNAKE_SPAWN_X, Globals.SNAKE_SPAWN_Y);
+            Globals.score = 0;
             initializeLives(Globals.lives);
+            textScore = new Score(this);
             start();
         } else {
             pause();

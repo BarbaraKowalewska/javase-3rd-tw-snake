@@ -1,20 +1,11 @@
 package com.codecool.snake.entities;
 
-import com.codecool.snake.Game;
 import com.codecool.snake.Globals;
-import com.codecool.snake.entities.GameEntity;
-import com.codecool.snake.entities.Interactable;
-import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Pane;
-import sun.nio.ch.sctp.SctpNet;
-
-import java.awt.*;
-import java.util.LinkedList;
 
 import static com.codecool.snake.Globals.heartList;
 
-public class Heart extends GameEntity  {
+public class Heart extends GameEntity {
 
     private boolean alive;
 
@@ -28,16 +19,12 @@ public class Heart extends GameEntity  {
         setImage(Globals.heart);
         pane.getChildren().add(this);
         heartList.add(this);
-
         setX(x);
         setY(y);
-
     }
 
     private void switchHeartColor() {
-
         setImage(this.alive ? Globals.heart : Globals.blackHeart);
-
     }
 
     public static void switchOffRedHeart() {
@@ -51,7 +38,7 @@ public class Heart extends GameEntity  {
     }
 
     public static void switchOnBlackHeart() {
-        for (int i=heartList.size()-1; i>=0; i--) {
+        for (int i = heartList.size() - 1; i >= 0; i--) {
             if (!heartList.get(i).alive) {
                 heartList.get(i).alive = true;
                 heartList.get(i).switchHeartColor();
@@ -59,8 +46,6 @@ public class Heart extends GameEntity  {
             }
         }
     }
-
-
 }
 
 

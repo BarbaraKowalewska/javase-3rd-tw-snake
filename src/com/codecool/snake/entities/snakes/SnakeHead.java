@@ -23,14 +23,6 @@ public class SnakeHead extends GameEntity implements Animatable {
     private double shootFrameDelay = 15;
     double dir;
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public SnakeHead(Pane pane, double xc, double yc) {
         super(pane);
         setX(xc);
@@ -114,7 +106,7 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     }
 
-    public void shoot(boolean superPower, boolean secondLaser){
+    public void shoot(boolean superPower, boolean secondLaser) {
         new Laser(pane, superPower, secondLaser);
     }
 
@@ -139,11 +131,11 @@ public class SnakeHead extends GameEntity implements Animatable {
     }
 
     public void changeScore(int diff) {
-        this.setScore(getScore()+diff);
-        System.out.println("SCORE  " + score );
+        Globals.score = Globals.score + diff;
+        System.out.println("SCORE  " + Globals.score);
     }
 
-    public void intoxicateSnake(int duration){
+    public void intoxicateSnake(int duration) {
         drunkTimeEnd = Game.time + duration;
     }
 
