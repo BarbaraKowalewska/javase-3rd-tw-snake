@@ -18,8 +18,6 @@ public class Score extends GameEntity {
         scoreText.setY(Globals.SCORE_TEXT_Y);
         scoreText.setFont(Font.font("courier", FontWeight.BOLD, FontPosture.REGULAR, 40));
         scoreText.setFill(Color.BLACK);
-//        scoreText.setStrokeWidth(1);
-//        scoreText.setStroke(Color.BLACK);
         upgradeText();
         pane.getChildren().add(scoreText);
     }

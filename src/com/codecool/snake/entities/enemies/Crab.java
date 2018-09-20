@@ -4,7 +4,6 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.Utils;
-import com.codecool.snake.entities.Heart;
 import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.geometry.Point2D;
@@ -17,20 +16,26 @@ import static com.codecool.snake.Utils.getShootByLaser;
 public class Crab extends GameEntity implements Animatable, Interactable {
 
     private Point2D heading;
-    private static final int damage = -1;
+    private static final int DAMAGE = -1;
+    public static final int BONUS = 1;
 
     public Crab(Pane pane, Double x, Double y) {
         super(pane);
         setImage(Globals.crab);
         pane.getChildren().add(this);
-        int speed = 1;
         setX(x);
         setY(y);
+        int speed = 1;
+        double direction = setRandomDirection();
+        heading = Utils.directionToVector(direction, speed);
+        Globals.addEnemy(this);
+    }
+
+    private double setRandomDirection() {
         Random rnd = new Random();
         double direction = rnd.nextDouble() * 360;
         setRotate(direction);
-        heading = Utils.directionToVector(direction, speed);
-        Globals.addEnemy(this);
+        return direction;
     }
 
     @Override
@@ -46,13 +51,13 @@ public class Crab extends GameEntity implements Animatable, Interactable {
 
     @Override
     public void apply(SnakeHead player) {
-        player.changeLives(damage);
+        player.changeLives(DAMAGE);
         destroy();
     }
 
     @Override
     public String getMessage() {
-        return "10 damage";
+        return "-1 live";
     }
 
 }

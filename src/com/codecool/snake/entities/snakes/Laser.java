@@ -8,44 +8,42 @@ import com.codecool.snake.entities.Interactable;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
+import static com.codecool.snake.Utils.findSnakeHead;
+
 public class Laser extends GameEntity implements Animatable, Interactable {
     private Point2D heading;
     private SnakeHead snakeHead;
-    private boolean superPower;
+    private boolean isSuperPowerOn;
     private double dir;
     private int speed;
 
 
-    // superPower
-    private GameEntity target;
-    private GameEntity secondTarget;
-    private double closestDistanceToTarget;
-    private double secondClosestDistanceToTarget;
-    private double currentDistanceToTarget;
-    double lastDirection;
+    // isSuperPowerOn
+    private GameEntity target;          // enemy that the laser follows
+    private GameEntity secondTarget;    // enemy that the 2nd laser follows
+    private double lastDirection;
 
 
-    public Laser(Pane pane, boolean superPower, boolean secondLaser) {
+    Laser(Pane pane, boolean isSuperPowerOn, boolean secondLaser) {
         super(pane);
-        setSpeed(superPower? 20 : 10);
-        setsuperPower(superPower);
+        setSpeed(isSuperPowerOn? 20 : 10); // projectile speed with superPower and without
+        setSuperPower(isSuperPowerOn);
         setImage(Globals.laser);
         pane.getChildren().add(this);
-        for (GameEntity gameObject : Globals.gameObjects) {
-            if (gameObject instanceof SnakeHead) {
-                setSnakeHead((SnakeHead) gameObject);
-            }
-        }
+        setSnakeHead(findSnakeHead());
         setDir(snakeHead.getRotate());
         setX(snakeHead.getX()+15);
         setY(snakeHead.getY()+8);
         lastDirection = getDir();
 
-        // superPower
-        closestDistanceToTarget = Math.sqrt(Math.pow(Globals.WINDOW_HEIGHT,2) + Math.pow(Globals.WINDOW_WIDTH,2));
-        secondClosestDistanceToTarget = closestDistanceToTarget;
+        // isSuperPowerOn
+
+        double closestDistanceToTarget = Math.sqrt(Math.pow(Globals.WINDOW_HEIGHT, 2) + Math.pow(Globals.WINDOW_WIDTH, 2));
+        // diagonal of game window, just to have the biggest possible distance in the game
+
+        double secondClosestDistanceToTarget = closestDistanceToTarget;
         for (GameEntity enemy : Globals.enemies) {
-            currentDistanceToTarget = Math.sqrt(Math.pow(enemy.getX()-getX(),2) + Math.pow(enemy.getY()-getY(),2));
+            double currentDistanceToTarget = Math.sqrt(Math.pow(enemy.getX() - getX(), 2) + Math.pow(enemy.getY() - getY(), 2));
             if (currentDistanceToTarget < closestDistanceToTarget) {
                 secondClosestDistanceToTarget = closestDistanceToTarget;
                 closestDistanceToTarget = currentDistanceToTarget;
@@ -58,35 +56,23 @@ public class Laser extends GameEntity implements Animatable, Interactable {
         target = secondLaser? secondTarget : target;
     }
 
-    public SnakeHead getSnakeHead() {
-        return snakeHead;
-    }
-
     public void setSnakeHead(SnakeHead snakeHead) {
         this.snakeHead = snakeHead;
     }
 
-    public boolean issuperPower() {
-        return superPower;
+    private void setSuperPower(boolean isSuperPowerOn) {
+        this.isSuperPowerOn = isSuperPowerOn;
     }
 
-    public void setsuperPower(boolean superPower) {
-        this.superPower = superPower;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public double getDir() {
+    private double getDir() {
         return dir;
     }
 
-    public void setDir(double dir) {
+    private void setDir(double dir) {
         this.dir = dir;
     }
 
-    public void setSpeed(int speed) {
+    private void setSpeed(int speed) {
         this.speed = speed;
     }
 
@@ -97,12 +83,13 @@ public class Laser extends GameEntity implements Animatable, Interactable {
         }
 
         // shoot lasers from snakeHead at the target
-        if (superPower && Globals.getEnemies().contains(target)) {
+        if (isSuperPowerOn && Globals.getEnemies().contains(target)) {
             setDir((Math.atan2(target.getY() - getY(), target.getX() - getX()) * 180 / Math.PI) + 90);
             lastDirection = getDir();
         } else {
             setDir(lastDirection);
         }
+
         setRotate(dir);
         Point2D heading = Utils.directionToVector(dir, speed);
         setX(getX() + heading.getX());

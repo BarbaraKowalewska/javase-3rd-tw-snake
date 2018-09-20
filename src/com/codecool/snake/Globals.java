@@ -36,12 +36,11 @@ public class Globals {
     public static Image superMan = new Image("super_man.png");
     public static Image mouse = new Image("mouse.png");
     public static Image eagle = new Image("eagle.png");
-    static Image background = new Image("sand.jpg");
     public static Image heart = new Image("heart.png");
     public static Image blackHeart = new Image("blackHeart.png");
     public static Image gameOver = new Image("gameover.png");
     public static Image pause = new Image("pause.png");
-    //.. put here the other images you want to use
+    static Image background = new Image("sand.jpg");
 
     public static boolean leftKeyDown;
     public static boolean rightKeyDown;
