@@ -19,14 +19,12 @@ public abstract class GameEntity extends ImageView {
         if (getParent() != null) {
             pane.getChildren().remove(this);
         }
+        Globals.removeEnemy(this);
         Globals.removeGameObject(this);
     }
 
     protected boolean isOutOfBounds() {
-        if (getX() > Globals.WINDOW_WIDTH || getX() < 0 ||
-            getY() > Globals.WINDOW_HEIGHT || getY() < 0) {
-            return true;
-        }
-        return false;
+        return getX() > Globals.WINDOW_WIDTH || getX() < 0 ||
+                getY() > Globals.WINDOW_HEIGHT || getY() < 0;
     }
 }
