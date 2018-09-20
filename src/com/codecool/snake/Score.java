@@ -8,21 +8,25 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.layout.Pane;
 
-public class Score extends GameEntity {
+class Score extends GameEntity {
 
     private Text scoreText = new Text();
 
-    public Score(Pane pane) {
+    Score(Pane pane, boolean isFinalScore) {
         super(pane);
         scoreText.setX(Globals.SCORE_TEXT_X);
         scoreText.setY(Globals.SCORE_TEXT_Y);
         scoreText.setFont(Font.font("courier", FontWeight.BOLD, FontPosture.REGULAR, 40));
-        scoreText.setFill(Color.BLACK);
+        if (isFinalScore) {
+            scoreText.setFill(Color.WHITE);
+        } else {
+            scoreText.setFill(Color.BLACK);
+        }
         upgradeText();
         pane.getChildren().add(scoreText);
     }
 
-    public void upgradeText(){
+    void upgradeText(){
         scoreText.setText("SCORE: " + Globals.score);
     }
 }

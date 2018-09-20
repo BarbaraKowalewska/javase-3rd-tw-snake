@@ -27,7 +27,7 @@ public class Utils {
                     objectBeingShoot.destroy();
                     if (objectBeingShoot instanceof Eagle) {
                         Globals.score += Eagle.BONUS;
-                    } else {
+                    } else if (objectBeingShoot instanceof Crab){
                         Globals.score += Crab.BONUS;
                     }
                 }

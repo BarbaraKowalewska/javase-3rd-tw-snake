@@ -26,7 +26,7 @@ public class Game extends Pane {
 
     Game() {
         snake = new SnakeHead(this, Globals.SNAKE_SPAWN_X, Globals.SNAKE_SPAWN_Y);
-        textScore = new Score(this);
+        textScore = new Score(this, false);
         initializeSpawners();
         initializeLives(Globals.lives);
     }
@@ -96,6 +96,14 @@ public class Game extends Pane {
         Globals.gameLoop.start();
     }
 
+    public static void gameOver() {
+        System.out.println("Game Over");
+        Globals.isGamePaused = true;
+        Globals.gameLoop.stop();
+        Curtain.set(Main.game, Globals.gameOver);
+        textScore = new Score(Main.game, true);
+    }
+
     private void setBackground() {
         setBackground(new Background(new BackgroundImage(Globals.background,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
@@ -108,7 +116,7 @@ public class Game extends Pane {
             resetGlobals();
             new SnakeHead(this, Globals.SNAKE_SPAWN_X, Globals.SNAKE_SPAWN_Y);
             initializeLives(Globals.lives);
-            textScore = new Score(this);
+            textScore = new Score(this, false);
             start();
         } else {
             pause();

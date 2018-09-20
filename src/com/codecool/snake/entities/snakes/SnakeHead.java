@@ -104,10 +104,7 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     private void checkIfGameOver() {
         if (Globals.lives <= 0) {
-            System.out.println("Game Over");
-            Globals.isGamePaused = true;
-            Globals.gameLoop.stop();
-            Curtain.set(pane, Globals.gameOver);
+            Game.gameOver();
         }
     }
 
