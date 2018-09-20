@@ -17,12 +17,10 @@ public class Laser extends GameEntity implements Animatable, Interactable {
     private double dir;
     private int speed;
 
-
     // isSuperPowerOn
     private GameEntity target;          // enemy that the laser follows
     private GameEntity secondTarget;    // enemy that the 2nd laser follows
     private double lastDirection;
-
 
     Laser(Pane pane, boolean isSuperPowerOn, boolean secondLaser) {
         super(pane);
@@ -36,12 +34,13 @@ public class Laser extends GameEntity implements Animatable, Interactable {
         setY(snakeHead.getY()+8);
         lastDirection = getDir();
 
-        // isSuperPowerOn
+        // superPowerOn
 
         double closestDistanceToTarget = Math.sqrt(Math.pow(Globals.WINDOW_HEIGHT, 2) + Math.pow(Globals.WINDOW_WIDTH, 2));
-        // diagonal of game window, just to have the biggest possible distance in the game
+        // diagonal of game window, the biggest possible distance in the game
 
         double secondClosestDistanceToTarget = closestDistanceToTarget;
+        // find two closest targets
         for (GameEntity enemy : Globals.enemies) {
             double currentDistanceToTarget = Math.sqrt(Math.pow(enemy.getX() - getX(), 2) + Math.pow(enemy.getY() - getY(), 2));
             if (currentDistanceToTarget < closestDistanceToTarget) {

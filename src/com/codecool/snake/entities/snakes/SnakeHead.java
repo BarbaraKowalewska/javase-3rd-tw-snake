@@ -135,7 +135,9 @@ public class SnakeHead extends GameEntity implements Animatable {
                 if (Game.frame >= shootFrameEnd) {
                     shootFrameEnd = Game.frame + shootFrameDelay;
                     shoot(true, false);
-                    shoot(true, true);
+                    if (Globals.enemies.size() > 1) {
+                        shoot(true, true);
+                    }
                 }
             }
         } else {

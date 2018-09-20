@@ -49,7 +49,7 @@ public class Game extends Pane {
     private void initializeSpawners() {
         new Spawner(this, Crab.class, 1, 100);
         new Spawner(this, Mouse.class, 2.0, 10);
-        new Spawner(this, Eagle.class, 3.0, 6);
+        new Spawner(this, Eagle.class, 3, 10);
         new Spawner(this, Beer.class, 5.0, 1);
         new Spawner(this, FirstAid.class, 11.0, 1);
         new Spawner(this, SuperPower.class, 13.0, 1);

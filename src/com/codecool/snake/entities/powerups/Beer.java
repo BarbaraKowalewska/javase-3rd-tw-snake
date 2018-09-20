@@ -20,7 +20,7 @@ public class Beer extends GameEntity implements Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        snakeHead.intoxicateSnake(5);
+        snakeHead.intoxicateSnake(3);
         snakeHead.changeScore(20);
         destroy();
     }
